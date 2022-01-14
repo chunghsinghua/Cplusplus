@@ -25,12 +25,16 @@ int main()
     int ans = 300000;
     for (int i = 0, left = 0; i < n; ++i)
     {
-        cnt[ref[d[i]]]++;
-        if (cnt[ref[d[i]]] == 1)
+        int color = ref[d[i]];
+        cnt[color]++;
+        if (cnt[color] == 1)
             wcolor++;
-        while (cnt[ref[d[left]]] > 1)
+        while (1)
         {
-            cnt[ref[d[left]]]--;
+            color = ref[d[left]];
+            if (cnt[color] == 1)
+                break;
+            cnt[color]--;
             left++;
         }
         if (wcolor == totalcolor)
