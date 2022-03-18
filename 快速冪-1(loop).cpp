@@ -15,7 +15,7 @@ int main()
     ll ans = 1;
     while (y)
     {
-        if (y % 2)
+        if (y & 1)
             ans = ans * x % p;
         x = x * x % p;
         y >>= 1;
