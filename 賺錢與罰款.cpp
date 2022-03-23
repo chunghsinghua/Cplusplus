@@ -12,14 +12,14 @@ struct work
 
 bool cmp(work a, work b)
 {
-    if (a.t == b.t)
-        return a.d > b.d;
+    // if (a.t == b.t)
+    //     return a.d > b.d;
     return a.t < b.t;
 }
 
 int main()
 {
-    freopen("Q_4_16_1.in", "r", stdin);
+    freopen("Q_4_16_5.in", "r", stdin);
     int n;
     cin >> n;
     for (int i = 0; i < n; ++i)
