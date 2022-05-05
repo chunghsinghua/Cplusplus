@@ -2,25 +2,25 @@
 
 using namespace std;
 
-#define N 10005
+#define N 105
 typedef long long ll;
 
 int d[N][N];
 
 int main()
 {
-    // freopen("p_1_7_5.in", "r", stdin);
+    // freopen("P_5_7_2.in", "r", stdin);
     int m, n;
     cin >> m >> n;
-    for (int i = 0; i < m; ++i)
-        d[i][0] = 1;
-    for (int i = 1; i < n; ++i)
-        d[0][i] = 1;
-    for (int i = 1; i < m; ++i)
-        for (int j = 1; j < n; ++j)
+    for (int i = 1; i <= m; ++i)
+        d[m][1] = 1;
+    for (int i = 1; i <= n; ++i)
+        d[1][i] = 1;
+
+    for (int i = 2; i <= m; ++i)
+        for (int j = 2; j <= n; ++j)
             d[i][j] = d[i - 1][j] + d[i][j - 1];
 
-    cout << d[m - 1][n - 1];
-
+    cout << d[m][n];
     return 0;
 }
