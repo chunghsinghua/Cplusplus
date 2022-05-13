@@ -5,15 +5,13 @@ using namespace std;
 #define N 75
 typedef long long ll;
 
-bool fun(int value, int div)
+bool fun(int value)
 {
     while (value)
     {
-        int t = value / div;
-        if (t % 2)
+        if (value % 2)
             return false;
-        value %= div;
-        div /= 10;
+        value /= 10;
     }
     return true;
 }
@@ -22,7 +20,7 @@ int main()
 {
     // freopen("P_5_7_2.in", "r", stdin);
     int n, k;
-    cin>>n;
+    cin >> n;
     while (n--)
     {
         cin >> k;
@@ -38,9 +36,9 @@ int main()
         {
             if (v * v < low)
                 continue;
-            if (fun(v * v, low))
+            if (fun(v * v))
             {
-                cout << v * v;
+                cout << v * v << "\n";
                 break;
             }
         }
