@@ -5,7 +5,7 @@ using namespace std;
 #define N 75
 typedef long long ll;
 
-bool fun(int value)
+bool fun(ll value)
 {
     while (value)
     {
@@ -24,11 +24,11 @@ int main()
     while (n--)
     {
         cin >> k;
-        int low = 1, high = 1;
+        ll low = 1, high = 1;
         for (int i = 0; i < k; ++i)
             high *= 10;
         low = high / 10;
-        int v = 1;
+        ll v = 1;
         for (int i = 0; i < (k + 1) / 2 - 1; ++i)
             v *= 10;
 
