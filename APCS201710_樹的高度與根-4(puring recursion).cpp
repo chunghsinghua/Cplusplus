@@ -35,7 +35,6 @@ int main()
     for (root = 1; root < n; ++root)
         if (parent[root] == 0)
             break;
-    findh(root);
     int sum = 0;
     for (int i = 1; i <= n; ++i)
         sum += findh(i);
