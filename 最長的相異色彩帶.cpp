@@ -5,7 +5,7 @@ using namespace std;
 #define N 200010
 typedef long long ll;
 
-int d[N], cnt[N];
+int c[N], cnt[N];
 
 int main()
 {
@@ -13,19 +13,19 @@ int main()
     int n;
     cin >> n;
     for (int i = 0; i < n; ++i)
-        cin >> d[i];
-    int ans = 0, ncolor = 0;
+        cin >> c[i];
+    int mx = 0;
     for (int left = 0, right = 0; right < n; ++right)
     {
-        int color = d[right];
+        int color = c[right];
         cnt[color]++;
-        while (cnt[color] > 1 && left < right)
+        while (cnt[color] > 1)
         {
-            cnt[d[left]]--;
+            cnt[c[left]]--;
             left++;
         }
-        ans = max(ans, right - left + 1);
+        mx = max(mx, right - left + 1);
     }
-    cout << ans;
+    cout << mx;
     return 0;
 }
