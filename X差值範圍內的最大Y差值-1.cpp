@@ -29,7 +29,7 @@ int main()
             mset.erase(p[left].second);
             left++;
         }
-        mx = max(mx, abs(*mset.rbegin() - *mset.begin()));
+        mx = max(mx, *mset.rbegin() - *mset.begin());
     }
 
     cout << mx;
