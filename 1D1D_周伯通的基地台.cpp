@@ -9,7 +9,7 @@ int d[N], dp[N];
 
 int main()
 {
-    freopen("P_6_13_3.in", "r", stdin);
+    freopen("P_6_13_1.in", "r", stdin);
     int n, k;
     cin >> n >> k;
     for (int i = 0; i < n; ++i)
@@ -23,7 +23,7 @@ int main()
             dp[i] = d[i];
         else
         {
-            if (deq.front() <= i - 2 * k - 2) // question1
+            if (deq.front() < i - 2 * k - 1) // question1
                 deq.pop_front();
             dp[i] = d[i] + dp[deq.front()];
         }
