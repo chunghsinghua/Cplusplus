@@ -21,7 +21,10 @@ int dlen(string &str, int len)
     int j = i + 1;
     str[j]--;
     while (len > 0 && str[len - 1] == 0)
+    {
         len--;
+        str.pop_back();
+    }
     return len;
 }
 
@@ -37,7 +40,7 @@ int bd(int len, int n)
 
 int main()
 {
-    // freopen("P_6_19_5.in", "r", stdin);
+    freopen("P_6_19_3.in", "r", stdin);
     cin >> s;
     int len = s.size();
     for (int i = 0, j = len - 1; i < j; ++i, --j)
@@ -53,14 +56,12 @@ int main()
     int t = bd(len + 1, 0);
 
     reverse(s.begin(), s.end());
-    int i, ans = 0;
-    while (s[i] == 0)
-        i++;
-    for (int j = 0; j < s[i]; ++j)
-        ans += dp[len][j];
-    for (int j = i + 1; j < len; ++j)
-        for (int k = s[j - 1]; k < s[j]; ++k)
-            ans += dp[len - j][k];
+    int ans = 0;
+    for (int i = 0; i < s[0]; ++i)
+        ans += dp[len][i];
+    for (int i = 1; i < len; ++i)
+        for (int j = s[i - 1]; j < s[i]; ++j)
+            ans += dp[len - i][j];
     cout << ans + 1;
     return 0;
 }
