@@ -2,41 +2,43 @@
 
 using namespace std;
 
-#define N 20
+#define N 210
 typedef long long ll;
 
-int dp[N][10][2], d[N];
-int fun(int len, int start, int lim)
+int dp[N][10][2];
+vector<int> d;
+
+int fun(int mx, int start, int limit)
 {
-    if (dp[len][start][lim] >= 0)
-        return dp[len][start][lim];
+    if (dp[mx][start][limit] >= 0)
+        return dp[mx][start][limit];
     int ret = 0;
-    if (lim)
+    if (limit)
     {
-        for (int i = start; i < d[len - 1]; ++i)
-            ret += fun(len - 1, i, 0);
-        if (d[len - 1] >= start)
-            ret += fun(len - 1, d[len - 1], 1);
+        for (int i = start; i < d[mx - 1]; ++i)
+            ret += fun(mx - 1, i, 0);
+        if (d[mx - 1] >= start)
+            ret += fun(mx - 1, d[mx - 1], 1);
     }
     else
     {
         for (int i = start; i < 10; ++i)
-            ret += fun(len - 1, i, 0);
+            ret += fun(mx - 1, i, 0);
     }
-    return dp[len][start][lim] = ret;
+    return dp[mx][start][limit] = ret;
 }
 
 int main()
 {
-    freopen("P_6_19_5.in", "r", stdin);
+    freopen("P_6_19_2.in", "r", stdin);
     ll num;
     cin >> num;
-    int mx = 0;
     while (num)
     {
-        d[mx++] = num % 10;
+        d.push_back(num % 10);
         num /= 10;
     }
+    int mx = d.size() - 1;
     memset(dp, -1, sizeof(dp));
     dp[0][0][0] = dp[0][0][1] = 0;
     for (int i = 1; i < 10; ++i)
@@ -46,6 +48,5 @@ int main()
         ans += fun(mx, i, 0);
     ans += fun(mx, d[mx], 1);
     cout << ans;
-
     return 0;
 }
