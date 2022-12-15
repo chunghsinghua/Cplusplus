@@ -1,3 +1,4 @@
+// binary search the first >=x between a[0..n-1]
 int jumpsearch(int a[], int n, int x)
 {
     if (a[0] >= x)
