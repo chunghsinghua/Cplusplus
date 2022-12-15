@@ -1,3 +1,4 @@
+// binary search x between a[left..right]
 int bsearch(int a[], int left, int right, int x)
 {
     while (left <= right)
