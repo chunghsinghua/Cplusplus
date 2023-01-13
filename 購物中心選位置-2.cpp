@@ -5,7 +5,7 @@ using namespace std;
 #define N 100010
 typedef long long ll;
 
-int num[N], parent[N], dis[N], deg[N], wei[N];
+int num[N], parent[N], deg[N], wei[N];
 
 int main()
 {
