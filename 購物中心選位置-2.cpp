@@ -6,7 +6,6 @@ using namespace std;
 typedef long long ll;
 
 int num[N], parent[N], dis[N], deg[N], wei[N];
-vector<pair<int, int>> adj[N];
 
 int main()
 {
