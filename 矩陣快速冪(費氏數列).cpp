@@ -5,7 +5,6 @@ using namespace std;
 #define N 100005
 typedef long long ll;
 
-int d[N];
 int p = 1000000007;
 
 struct mat
@@ -30,12 +29,8 @@ struct mat
 void solve(int n)
 {
     mat ret, f;
-    ret.a[0][0] = 1;
-    ret.a[1][0] = 0;
-    f.a[0][0] = 1;
-    f.a[0][1] = 1;
-    f.a[1][0] = 1;
-    f.a[1][1] = 0;
+    ret.a[0][0] = 1, ret.a[1][0] = 0;
+    f.a[0][0] = 1, f.a[0][1] = 1, f.a[1][0] = 1, f.a[1][1] = 0;
     while (n)
     {
         if (n & 1)
@@ -43,7 +38,7 @@ void solve(int n)
         n >>= 1;
         f = f * f;
     }
-    cout << ret.a[1][0] << "\n";
+    cout << ret.a[0][0] << "\n";
 }
 
 int main()
@@ -54,7 +49,7 @@ int main()
     {
         if (n == -1)
             break;
-        solve(n);
+        solve(n - 1);
     }
     return 0;
 }
