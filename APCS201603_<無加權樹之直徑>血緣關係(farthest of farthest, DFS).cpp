@@ -3,9 +3,8 @@ using namespace std;
 
 #define N 100010
 typedef long long ll;
-
-int h[N];
 vector<int> adj[N];
+int h[N];
 
 void dfs(int n, int p)
 {
@@ -21,7 +20,7 @@ void dfs(int n, int p)
 
 int main()
 {
-    freopen("P_8_14_5.in", "r", stdin);
+    freopen("P_8_14_1.in", "r", stdin);
     int n;
     cin >> n;
     for (int i = 0; i < n - 1; ++i)
@@ -32,22 +31,10 @@ int main()
         adj[b].push_back(a);
     }
     dfs(0, -1);
-    int mx = 0, idx;
-    for (int i = 0; i < n; ++i)
-    {
-        if (h[i] > mx)
-        {
-            mx = h[i];
-            idx = i;
-        }
-    }
-    mx = 0;
+    int a = distance(h, max_element(h, h + n));
     fill(h, h + n, 0);
-    dfs(idx, -1);
-    for (int i = 0; i < n; ++i)
-        mx = max(mx, h[i]);
-
-    cout << mx;
+    dfs(a, -1);
+    cout << *max_element(h, h + n);
 
     return 0;
 }
