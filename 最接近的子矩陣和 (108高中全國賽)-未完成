@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define N 100010
+typedef long long ll;
+#define oo 1000000001
+
+int mat[60][300001];
+
+int main()
+{
+    freopen("Q_2_12_9.in", "r", stdin);
+    int n, m, k, t;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> k >> m >> n;
+    for (int i = 1; i <= m; ++i)
+    {
+        for (int j = 1; j <= n; ++j)
+        {
+            cin >> t;
+            mat[i][j] = mat[i][j - 1] + t;
+        }
+    }
+    int ans = INT_MIN;
+    for (int p = 0; p <= n; ++p)
+    {
+        for (int j = p + 1; j <= n; ++j)
+        {
+            int s = 0;
+            for (int i = 1; i <= m; ++i)
+            {
+                s += mat[i][j] - mat[i][p];
+                if (s <= k)
+                    ans = max(ans, s);
+                if (s < 0 || s > k)
+                    s = 0;
+            }
+        }
+    }
+    cout << ans;
+    return 0;
+}
