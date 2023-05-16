@@ -1,37 +1,35 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 #define N 200010
 typedef long long ll;
 
-int d[N], dp[N];
+int c[N], dp[N];
 
 int main()
 {
-    freopen("P_6_13_1.in", "r", stdin);
+    freopen("P_6_13_5.in", "r", stdin);
     int n, k;
     cin >> n >> k;
-    for (int i = 0; i < n; ++i)
-        cin >> d[i];
+    for (int i = 1; i <= n; ++i)
+        cin >> c[i];
     deque<int> deq;
-    deq.push_back(0);
-    dp[0] = d[0];
-    for (int i = 1; i < n; ++i)
+    deq.push_back(1);
+    dp[1] = c[1];
+    for (int i = 2; i <= n; ++i)
     {
-        if (i <= k)
-            dp[i] = d[i];
+        if (deq.front() < i - (2 * k + 1))
+            deq.pop_front();
+        if (i <= k + 1)
+            dp[i] = c[i];
         else
-        {
-            if (deq.front() < i - 2 * k - 1) // question1
-                deq.pop_front();
-            dp[i] = d[i] + dp[deq.front()];
-        }
-        while (!deq.empty() && dp[deq.back()] >= dp[i])
+            dp[i] = c[i] + dp[deq.front()];
+
+        while (!deq.empty() && dp[i] <= dp[deq.back()])
             deq.pop_back();
         deq.push_back(i);
     }
-    int ans = *min_element(dp + n - 1 - k, dp + n);
-    cout << ans;
+    cout << *min_element(dp + n - k, dp + n + 1);
+
     return 0;
 }
