@@ -2,26 +2,19 @@
 
 using namespace std;
 
-#define N 1000010
+#define N 210
 typedef long long ll;
 
 int d[N];
 
-int fun(int le, int ri)
+ll fun(int le, int ri)
 {
     if (le + 1 >= ri)
         return 0;
-    int m = 0, check = INT_MAX;
+    ll mn = INT_MAX;
     for (int i = le + 1; i < ri; ++i)
-    {
-        int t = fun(le, i) + fun(i, ri);
-        if (t < check)
-        {
-            m = i;
-            check = t;
-        }
-    }
-    return (d[ri] - d[le]) + check;
+        mn = min(mn, fun(le, i) + fun(i, ri));
+    return mn + d[ri] - d[le];
 }
 
 int main()
@@ -31,7 +24,8 @@ int main()
     cin >> n >> l;
     for (int i = 1; i <= n; ++i)
         cin >> d[i];
-    d[0] = 0, d[n + 1] = l;
+    d[n + 1] = l;
     cout << fun(0, n + 1);
+
     return 0;
 }
