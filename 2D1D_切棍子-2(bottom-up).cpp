@@ -7,16 +7,6 @@ typedef long long ll;
 
 int d[N], dp[N][N];
 
-ll fun(int le, int ri)
-{
-    if (dp[le][ri] >= 0)
-        return dp[le][ri];
-    ll mn = INT_MAX;
-    for (int i = le + 1; i < ri; ++i)
-        mn = min(mn, fun(le, i) + fun(i, ri));
-    return dp[le][ri] = mn + d[ri] - d[le];
-}
-
 int main()
 {
     freopen("P_6_17_5.in", "r", stdin);
