@@ -2,32 +2,29 @@
 
 using namespace std;
 
-#define N 200005
+#define N 200010
 typedef long long ll;
 
-int d[N];
-
+int p[N];
 int main()
 {
-    freopen("P_2_15_1.in", "r", stdin);
+    freopen("P_2_15_5.in", "r", stdin);
     int n, m;
     cin >> n >> m;
     for (int i = 0; i < n; ++i)
-        cin >> d[i];
-    int room = 0, key, sum = 0;
-    for (int i = 0; i < m; ++i)
+        cin >> p[i];
+    int room = 0, v;
+    while (m--)
     {
-        cin >> key;
-        while (room < n && sum + d[room] < key)
+        cin >> v;
+        int sum = 0;
+        while (room < n && sum + p[room] < v)
         {
-            sum += d[room];
-            room++;
+            sum += p[room++];
             if (room == n)
                 room = 0;
         }
-
         room = (room + 1) % n;
-        sum = 0;
     }
     cout << room;
     return 0;
