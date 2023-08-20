@@ -16,10 +16,7 @@ int dfs(int n)
     for (int e : adj[n])
     {
         if (!visit[e])
-        {
-            visit[e] = true;
-            ret += dfs(e);
-        }
+           ret += dfs(e);
     }
     return ret;
 }
