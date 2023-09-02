@@ -1,5 +1,3 @@
-import queue
-
 with open("C:/Users/ChungHsingHua/Documents/c-program/kevin/P_3_1_1.in") as testfile:
     testdata = testfile.readlines()
 
