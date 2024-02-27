@@ -23,7 +23,7 @@ void conv(int v, int parent)
 
 int main()
 {
-    freopen("Q_8_9_5.in", "r", stdin);
+    freopen("Q_8_9_4.in", "r", stdin);
     int n;
     cin >> n;
     for (int i = 1; i < n; ++i)
@@ -39,26 +39,27 @@ int main()
         if (deg[i] == 0)
             que.push(i);
     int total = 0;
+    // 0 is bound, 1 is dominating point, 2 is free;
     while (!que.empty())
     {
         int v = que.front();
         que.pop();
         if (v == 1)
             break;
-        if (mark[v] == 0) // not be dominated;
+        if (mark[v] == 0)
         {
-            mark[p[v]] = 1; // dominate
+            mark[p[v]] = 1;
         }
-        if (mark[v] == 1)
+        else if (mark[v] == 1)
         {
             total++;
             if (mark[p[v]] != 1)
                 mark[p[v]] = 2;
-        } // be dominated, but not dominate any
+        }
         if (--deg[p[v]] == 0)
             que.push(p[v]);
     }
-    if (mark[1] == 1 || mark[1] == 0)
+    if (mark[1] == 1 || mark[1] == 0) // mark[v]!=2
         total++;
     cout << total;
     return 0;
