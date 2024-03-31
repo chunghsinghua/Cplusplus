@@ -1,4 +1,4 @@
-
+# find the first >= x between a[left..right]
 def fun(s,le,ri):
     while le<=ri:
         mid = (le+ri)//2
