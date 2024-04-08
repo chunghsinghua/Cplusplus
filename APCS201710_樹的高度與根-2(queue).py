@@ -1,35 +1,31 @@
-import queue
+import sys, queue
 
-testfile = open("C:/Users/ChungHsingHua/Documents/c-program/kevin/P_3_1_3.in")
-indata = [line.strip() for line in testfile]
+# sys.stdin = open("C:\\Users\\ChungHsingHua\\Documents\\c-program\\kevin\\p_7_2_4.in")
 
-n = int(indata[0])
-data = [[] for _ in range(n+1)]
-chnum = [0]*(n+1)
-parent = [0]*(n+1)
-h = [0]*(n+1)
-que = queue.Queue()
+n=int(input())
 
-for i in range(1, n+1):
-    chnum[i], *children = map(int, indata[i].split())
-    data[i] = children
-    for j in children:
-        parent[j] = i
-    if chnum[i] == 0:
+deg=[0]*(n+1)
+p=[0]*(n+1)
+h=[0]*(n+1)
+
+que=queue.Queue()
+for i in range(1,n+1):
+    deg[i],*chs=[int(x) for x in input().split()]
+    for ch in chs:
+        p[ch]=i
+    if deg[i]==0:
         que.put(i)
 
-total = 0
+root = p[1:].index(0)+1
+print(root)
+
 while not que.empty():
     v = que.get()
-    total += h[v]
-    p = parent[v]
-    if p == 0:
-        root = v
+    if v == root:
         break
-    h[p] = max(h[p], h[v]+1)
-    chnum[p] -= 1
-    if chnum[p] == 0:
-        que.put(p)
-
-print(root)
-print(total)
+    parent = p[v]
+    h[parent]=max(h[v]+1,h[parent])
+    deg[parent]-=1
+    if deg[parent]==0:
+        que.put(parent)
+print(sum(h))
