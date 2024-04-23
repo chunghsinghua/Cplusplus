@@ -1,46 +1,36 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
 #define N 300010
 typedef long long ll;
 
-ll a[N], psum[N];
-
-bool cmp(int x, int y)
-{
-    return a[x] > a[y];
-}
-
 int main()
 {
-    // freopen("P_4_14_5.in", "r", stdin);
+    // freopen("P_8_14_1.in", "r", stdin);
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     int n;
     cin >> n;
-    vector<int> v;
+    vector<ll> a(n + 1), psum(n + 1), vec(n);
     for (int i = 1; i <= n; ++i)
     {
         cin >> a[i];
         psum[i] = psum[i - 1] + a[i];
-        v.push_back(i);
+        vec[i - 1] = i;
     }
-    sort(v.begin(), v.end(), cmp);
+    sort(vec.begin(), vec.end(), [&a](int x, int y)
+         { return a[x] > a[y]; });
     int le = 1, ri = n;
-    ll lesum, risum, k;
-    while (le != ri)
+    while (le < ri)
     {
-        while (v.back() < le || v.back() > ri)
-            v.pop_back();
-        k = v.back();
-        v.pop_back();
-        lesum = psum[k - 1] - psum[le - 1];
-        risum = psum[ri] - psum[k];
-        if (lesum > risum)
-            ri = k - 1;
+        while (vec.back() < le || vec.back() > ri)
+            vec.pop_back();
+        int idx = vec.back();
+        vec.pop_back();
+        if (psum[ri] - psum[idx] >= psum[idx - 1] - psum[le - 1])
+            le = idx + 1;
         else
-            le = k + 1;
+            ri = idx - 1;
     }
     cout << a[le];
     return 0;
