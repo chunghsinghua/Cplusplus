@@ -27,8 +27,7 @@ int main()
     {
         if (last[vec[i]] >= le)
             le = last[vec[i]] + 1;
-        else
-            last[vec[i]] = i;
+        last[vec[i]] = i;
         if (i - le + 1 == m)
             cnt++;
     }
