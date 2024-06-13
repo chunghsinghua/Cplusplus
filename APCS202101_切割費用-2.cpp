@@ -1,31 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define N 200000
+#define N 50010
 typedef long long ll;
 
 int main()
 {
-    // freopen("P_3_9_5.in", "r", stdin);
-    ios_base::sync_with_stdio(0);
+    // freopen("Q_3_5_3.in", "r", stdin);
+    ios::sync_with_stdio(0);
     cin.tie(0);
-    int n, l, x, i;
-    set<int> st;
+    int n, l;
     cin >> n >> l;
-    vector<pair<int, int>> data;
-    for (int j = 1; j <= n; ++j){
-        cin >> x >> i;
-        data.push_back({i,x});
+    vector<pair<int, int>> seq(n);
+    for (int i = 0; i < n; ++i)
+        cin >> seq[i].second >> seq[i].first;
+    sort(seq.begin(), seq.end());
+    set<int> s{0, l};
+    ll tot = 0, t;
+    for (int i = 0; i < n; ++i)
+    {
+        t = seq[i].second;
+        s.insert(t);
+        auto it = s.find(t);
+        tot += *next(it) - *prev(it);
     }
-    sort(data.begin(), data.end());
-    st.insert(0);
-    st.insert(l);
-    ll ans = 0;
-    for(auto a:data){
-        st.insert(a.second);
-        auto it = st.lower_bound(a.second);
-        ans += (*next(it)) - (*prev(it));
-    }
-    cout << ans;
+    cout << tot;
     return 0;
 }
