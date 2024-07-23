@@ -1,73 +1,68 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
-#define N 1010
+#define N 50010
 typedef long long ll;
 
-struct Attr
+struct game
 {
-    ll s, t;
-    int lose;
-} group[N];
+    ll s, t, lose;
+};
 
 int main()
 {
-    // freopen("P_6_19_5.in", "r", stdin);
-    int n, m;
+    // freopen("q_1_8_5.in", "r", stdin);
+    // ios::sync_with_stdio(0);
+    // cin.tie(0);
+    ll m, n, a, b, c, d, x, y;
     cin >> n >> m;
-
+    vector<game> g(n + 1, {0, 0, 0});
+    vector<int> seq(n), winteam, loseteam;
     for (int i = 1; i <= n; ++i)
-        cin >> group[i].s;
+        cin >> g[i].s;
     for (int i = 1; i <= n; ++i)
+        cin >> g[i].t;
+    for (int i = 0; i < n; ++i)
+        cin >> seq[i];
+    while (seq.size() > 1)
     {
-        cin >> group[i].t;
-        group[i].lose = 0;
-    }
-    vector<int> round;
-    int t;
-    for (int i = 1; i <= n; ++i)
-    {
-        cin >> t;
-        round.push_back(t);
-    }
-    int cnt = 0;
-    while (round.size() > 1)
-    {
-        vector<int> win, lose;
-        for (int i = 0; i <= round.size() - 2; i += 2)
+        winteam.clear();
+        loseteam.clear();
+        for (int i = 0; i < seq.size(); i += 2)
         {
-            int idx1 = round[i], idx2 = round[i + 1];
-            ll a = group[idx1].s, b = group[idx1].t, c = group[idx2].s, d = group[idx2].t;
+            if ((seq.size() & 1) && (i == seq.size() - 1))
+            {
+                winteam.push_back(seq[i]);
+                break;
+            }
+            x = seq[i], y = seq[i + 1];
+            a = g[x].s, b = g[x].t, c = g[y].s, d = g[y].t;
             if (a * b >= c * d)
             {
-                group[idx1].s = a + c * d / (2 * b);
-                group[idx1].t = b + c * d / (2 * a);
-                group[idx2].s = c + c / 2;
-                group[idx2].t = d + d / 2;
-                win.push_back(idx1);
-                group[idx2].lose++;
-                if (group[idx2].lose < m)
-                    lose.push_back(idx2);
+                g[x].s = a + (c * d) / (2 * b);
+                g[x].t = b + (c * d) / (2 * a);
+                g[y].s = c + c / 2;
+                g[y].t = d + d / 2;
+                winteam.push_back(x);
+                g[y].lose++;
+                if (g[y].lose < m)
+                    loseteam.push_back(y);
             }
             else
             {
-                group[idx1].s = a + a / 2;
-                group[idx1].t = b + b / 2;
-                group[idx2].s = c + a * b / (2 * d);
-                group[idx2].t = d + a * b / (2 * c);
-                win.push_back(idx2);
-                group[idx1].lose++;
-                if (group[idx1].lose < m)
-                    lose.push_back(idx1);
+                g[y].s = c + (a * b) / (2 * d);
+                g[y].t = d + (a * b) / (2 * c);
+                g[x].s = a + a / 2;
+                g[x].t = b + b / 2;
+                winteam.push_back(y);
+                g[x].lose++;
+                if (g[x].lose < m)
+                    loseteam.push_back(x);
             }
         }
-        if (round.size() % 2)
-            win.push_back(round.back());
-        swap(round, win);
-        for (auto e : lose)
-            round.push_back(e);
+        swap(winteam, seq);
+        seq.insert(seq.end(), loseteam.begin(), loseteam.end());
     }
-    cout << round.front();
+    cout << seq.front();
     return 0;
 }
