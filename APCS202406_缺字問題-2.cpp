@@ -1,45 +1,44 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 #define N 50010
 typedef long long ll;
 
-void fun(string ret, string &s, int t, map<string, bool> &mp)
+void fun(string s, int l, string &alpha, int n, map<string, bool> &mp)
 {
-    if (t == 0)
+    if (l == 0)
     {
-        mp.insert({ret, false});
+        mp.insert({s, false});
         return;
     }
-    for (int i = 0; i < s.size(); ++i)
-    {
-        string ret2 = ret + s[i];
-        fun(ret2, s, t - 1, mp);
-    }
+    for (int i = 0; i < n; ++i)
+        fun(s + alpha[i], l - 1, alpha, n, mp);
+    return;
 }
 
 int main()
 {
-    // freopen("P_5_4_3.in", "r", stdin);
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    string alpha, s;
-    int l, leng;
+    // freopen("p_1_1_5.in", "r", stdin);
+    int k, l, leng, kl = 1;
+    string s, alpha, t;
     cin >> alpha >> l >> s;
+    k = alpha.size();
     leng = s.size();
     map<string, bool> mp;
-    fun("", alpha, l, mp);
-    string t;
+    fun("", l, alpha, k, mp);
     for (int i = 0; i <= leng - l; ++i)
     {
         t = s.substr(i, l);
         mp[t] = true;
     }
-    for (auto it = mp.begin(); it != mp.end(); ++it)
-        if (!it->second)
+    for (auto e : mp)
+    {
+        if (!e.second)
         {
-            cout << it->first;
+            cout << e.first;
             break;
         }
+    }
     return 0;
 }
