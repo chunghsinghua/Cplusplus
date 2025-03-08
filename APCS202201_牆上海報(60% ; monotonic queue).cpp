@@ -16,21 +16,16 @@ int main()
     for (int i = 0; i < k; ++i)
         cin >> w[i];
     deque<int> mnq;
-    for (int i = 0; i < w[0]; ++i)
+    int mx = -1;
+    for (int i = 0; i < n; ++i)
     {
-        while (!mnq.empty() && h[mnq.back()] >= h[i])
-            mnq.pop_back();
-        mnq.push_back(i);
-    }
-    int mx = h[mnq.front()];
-    for (int i = w[0]; i < n; ++i)
-    {
-        if (mnq.front() <= i - w[0])
+        if (!mnq.empty() && mnq.front() <= i - w[0])
             mnq.pop_front();
         while (!mnq.empty() && h[mnq.back()] >= h[i])
             mnq.pop_back();
         mnq.push_back(i);
-        mx = max(mx, h[mnq.front()]);
+        if (i >= w[0] - 1)
+            mx = max(mx, h[mnq.front()]);
     }
     cout << mx;
 
