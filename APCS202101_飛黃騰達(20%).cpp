@@ -5,13 +5,6 @@ using namespace std;
 #define N 50010
 typedef long long ll;
 
-int fun(int n, int m, int k)
-{
-    if (k == 0)
-        return 0;
-    return (fun(n - 1, m, k - 1) + m) % n;
-}
-
 int main()
 {
     // freopen("P_3_8_5.in", "r", stdin);
