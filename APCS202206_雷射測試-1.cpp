@@ -37,7 +37,7 @@ int main()
         prev = idx;
     }
     int py = -4000000, v = -1; // v is the first mirror
-    sort(p.begin(), p.end(), [](vector<int> x, vector<int> y)
+    sort(p.begin(), p.end(), [](vector<int> &x, vector<int> &y)
          { if(x[1]==y[1])
             return x[0] < y[0];
         return x[1] < y[1]; });
