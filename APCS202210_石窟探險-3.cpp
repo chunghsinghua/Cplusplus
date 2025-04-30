@@ -33,6 +33,8 @@ int main()
         st = en + pattern.size();
         en = s.find(pattern, st);
     }
+    if (beg != s.size())
+        vec.push_back(stoi(s.substr(beg)));
     idx = 1;
     cout << fun(vec[0], vec);
     return 0;
