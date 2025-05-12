@@ -2,54 +2,52 @@
 
 using namespace std;
 
-#define N 10010
+#define N 50010
 typedef long long ll;
-#define oo 1000000000
-
-int dis[N];
-bool visit[N];
-vector<pair<int, int>> adj[N];
 
 int main()
 {
-    freopen("P_7_9_3.in", "r", stdin);
-    int n, m;
+    // freopen("P_6_7_5.in", "r", stdin);
+    int n, m, v, u, w;
     cin >> n >> m;
+    const int oo = 1e9 + 1;
+    vector<int> d(n, oo);
+    vector<bool> done(n, false);
+    vector<vector<pair<int, int>>> adj(n, vector<pair<int, int>>());
     for (int i = 0; i < m; ++i)
     {
-        int u, v, w;
-        cin >> u >> v >> w;
-        adj[u].push_back({v, w});
+        cin >> v >> u >> w;
         adj[v].push_back({u, w});
+        adj[u].push_back({v, w});
     }
-    for (int i = 0; i < n; ++i)
-        dis[i] = oo;
-    dis[0] = 0;
     priority_queue<pair<int, int>> pq;
-    pq.push({0, 0});
+    d[0] = 0;
+    pq.push({0, 0}); //{-w, vertex};
     while (!pq.empty())
     {
-        auto v = pq.top();
-        int d = v.second;
+        auto vv = pq.top();
         pq.pop();
-        if (visit[d])
+        v = vv.second;
+        if (done[v])
             continue;
-        visit[d] = true;
-        for (auto e : adj[d])
+        done[v] = true;
+        for (auto e : adj[v])
         {
-            dis[e.first] = min(dis[e.first], dis[d] + e.second);
-            pq.push({-dis[e.first], e.first});
+            u = e.first, w = e.second;
+            if (d[v] + w < d[u])
+            {
+                d[u] = d[v] + w;
+                pq.push({-d[u], u});
+            }
         }
     }
-    int cnt = 0, mx = 0;
-    for (int i = 0; i < n; ++i)
+    int mx = 0, cnt = 0;
+    for (int e : d)
     {
-        if (dis[i] < oo)
-            mx = max(mx, dis[i]);
-        else
-        {
+        if (e == oo)
             cnt++;
-        }
+        else
+            mx = max(mx, e);
     }
     cout << mx << '\n'
          << cnt;
