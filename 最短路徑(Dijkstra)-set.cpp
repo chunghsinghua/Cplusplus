@@ -2,58 +2,52 @@
 
 using namespace std;
 
-#define N 10010
+#define N 50010
 typedef long long ll;
-#define oo 1000000000
-
-vector<pair<int, int>> adj[N];
-int dis[N];
-bool visit[N];
 
 int main()
 {
-    freopen("P_7_9_2.in", "r", stdin);
-    int m, n;
+    freopen("P_7_9_5.in", "r", stdin);
+    int n, m, v, u, w;
     cin >> n >> m;
+    const int oo = 1e9 + 1;
+    vector<int> d(n, oo);
+    vector<bool> done(n, false);
+    vector<vector<pair<int, int>>> adj(n, vector<pair<int, int>>());
     for (int i = 0; i < m; ++i)
     {
-        int u, v, w;
-        cin >> u >> v >> w;
-        adj[u].push_back({v, w});
+        cin >> v >> u >> w;
         adj[v].push_back({u, w});
+        adj[u].push_back({v, w});
     }
-    for (int i = 0; i < n; ++i)
-        dis[i] = oo;
-    dis[0] = 0;
-
-    set<pair<int, int>> s;
-    s.insert({0, 0});
-    while (!s.empty())
+    set<pair<int, int>> pq;
+    d[0] = 0;
+    pq.insert({0, 0}); //{w, vertex};
+    while (!pq.empty())
     {
-        auto p = *s.begin();
-        s.erase(s.begin());
-        int v = p.second;
-        if (visit[v])
+        auto vv = *pq.begin();
+        pq.erase(pq.begin());
+        v = vv.second;
+        if (done[v])
             continue;
-
-        visit[v] = true;
+        done[v] = true;
         for (auto e : adj[v])
         {
-            int to = e.first, w = e.second;
-            dis[to] = min(dis[to], dis[v] + w);
-            s.insert({dis[to], to});
+            u = e.first, w = e.second;
+            if (d[v] + w < d[u])
+            {
+                d[u] = d[v] + w;
+                pq.insert({d[u], u});
+            }
         }
     }
-
-    int cnt = 0, mx = 0;
-    for (int i = 0; i < n; ++i)
+    int mx = 0, cnt = 0;
+    for (int e : d)
     {
-        if (dis[i] < oo)
-            mx = max(mx, dis[i]);
-        else
-        {
+        if (e == oo)
             cnt++;
-        }
+        else
+            mx = max(mx, e);
     }
     cout << mx << '\n'
          << cnt;
